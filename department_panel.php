@@ -19,10 +19,10 @@
 			First Name : <input type="text" name="student_first_name"><br>
 			Last Name  : <input type="text" name="student_last_name"><br>
 			Student Id : <input type="text" name="student_id"><br>
-			Year	   : <input type="text" name="student_year"><br>
+			Semester   : <input type="text" name="student_sem"><br>
 			Branch     : <input type="text" name="student_branch"><br>
-			Password   : <input type="password" name="password"><br>
-			Confirm Password : <input type="password" name="confirm_password"><br>
+			Password(DOB)   : <input type="password" name="password"><br>
+			Confirm Password(DOB) : <input type="password" name="confirm_password"><br>
 			<input type="submit" name="sign_up" value="Sign Up">
 		</form>
 	</div>
@@ -38,9 +38,8 @@
 		</form>
 	</div>
 	<br><br>
-	add questions 
-	
 	<div class="add_questions">
+		Add Questions
 		<form action="php_controllers/add_questions.php" method="GET">
 		<?php if(isset($_GET['questions'])){
 				for($count = 1 ; $count <= $_GET['questions'] ; $count++) {
