@@ -14,9 +14,10 @@
 		$_SESSION['subject'] = $subject;
 		$_SESSION['year'] = $year;
 		$_SESSION['no_of_questions'] = $no_of_questions;
-		header("Location: /Online_examination/student_profile.php");
+		header("Location: /Online_examination/question_paper.php?question=1");
 	}else{
 		echo "<script>window.alert('Provied year or subject is no correct..')</script>";
 		header("Location: /Online_examination/student_profile.php");
 	}
+	$connection->closeConnection($con);
 ?>

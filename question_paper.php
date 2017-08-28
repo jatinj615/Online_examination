@@ -23,13 +23,33 @@
 </head>
 <body>
 <div>
+	<ul>
+ 	<?php 
+ 		if(isset($_SESSION['no_of_questions'])){
+ 			$no_of_questions = $_SESSION['no_of_questions'];
+ 			for($i = 1 ; $i <= $no_of_questions ; $i++ ){
+ 	?>
+ 		<a href="question_paper.php?question=<?php echo $i; ?>">
+		<li>Question <?php echo $i; ?></li>
+		</a>
+ 	<?php		
+ 			}
+ 		}
+ 	 ?>
+ 	 </ul>
 	Question <?php echo $question_no; ?> : <?php echo $row['QUESTION']; ?>
 	options<br>
-	1. <?php echo $row['OPTION_1']; ?>
-	2. <?php echo $row['OPTION_2']; ?>
-	3. <?php echo $row['OPTION_3']; ?>
-	4. <?php echo $row['OPTION_4']; ?>
-</div>
+	<form action="#">
+	1.<input type="radio" name="answer" value="<?php echo $row['OPTION_1']; ?>">
+		<?php echo $row['OPTION_1']; ?><br>
+	2.<input type="radio" name="answer" value="<?php echo $row['OPTION_2']; ?>">
+		<?php echo $row['OPTION_2']; ?><br>
+	3.<input type="radio" name="answer" value="<?php echo $row['OPTION_3']; ?>">
+		<?php echo $row['OPTION_3']; ?><br>
+	4.<input type="radio" name="answer" value="<?php echo $row['OPTION_4']; ?>">
+		<?php echo $row['OPTION_4']; ?><br>
+	</form>
+</div>		
 <?php 
 		}
 	if ($question_no == 1) {
