@@ -48,9 +48,7 @@
 		<?php echo $row['OPTION_3']; ?><br>
 	4.<input type="radio" name="answer" value="<?php echo $row['OPTION_4']; ?>">
 		<?php echo $row['OPTION_4']; ?><br>
-	</form>
-</div>		
-<?php 
+	<?php 
 		}
 	if ($question_no == 1) {
 	?>
@@ -71,7 +69,7 @@
 	header("Location: student_profile.php");
 }
  ?>
-
-	
+	</form>
+</div>		
 </body>
 </html>

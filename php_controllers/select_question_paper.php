@@ -4,6 +4,7 @@
 	$subject = $_GET['subject'];
 	$year = $_GET['year'];
 	$sem = $_SESSION['stu_sem'];
+	$stu_id = $_SESSION['stu_id'];
 	$department = $_SESSION['stu_department'];
 	$connection = new DatabaseConnect();
 	$con = $connection->connect();
@@ -14,7 +15,17 @@
 		$_SESSION['subject'] = $subject;
 		$_SESSION['year'] = $year;
 		$_SESSION['no_of_questions'] = $no_of_questions;
-		header("Location: /Online_examination/question_paper.php?question=1");
+		$counter = 0;
+		for ($i=1; $i <= $no_of_questions ; $i++) { 
+			echo $question_query = 'Insert into SUBMITTED_ANSWERS (STU_ID,STU_DEPARTMENT,STU_SEM,SUBJECT,YEAR,QUESTION_NO) values ('.$stu_id.',"'.$department.'",'.$sem.',"'.$subject.'",'.$year.','.$i.')';
+			$insert_question = mysqli_query($con , $question_query);
+			if ($insert_question) {
+				echo $counter++;
+			}
+		}
+		if($counter == $no_of_questions){
+			header("Location: /Online_examination/question_paper.php?question=1");
+		}
 	}else{
 		echo "<script>window.alert('Provied year or subject is no correct..')</script>";
 		header("Location: /Online_examination/student_profile.php");
