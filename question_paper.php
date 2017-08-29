@@ -1,19 +1,21 @@
 <?php 
 	session_start();
-	include 'php_controllers/database_connection.php';
-	if (isset($_SESSION['no_of_questions']) && isset($_GET['question'])) {
-		$question_no = $_GET['question'];
-		$max_question = $_SESSION['no_of_questions'];
-		$year = $_SESSION['year'];
-		$sem = $_SESSION['stu_sem'];
-		$department = $_SESSION['stu_department'];
-		$subject = $_SESSION['subject'];
-		$connection = new DatabaseConnect();
-		$con = $connection->connect();
-		$query = 'Select QUESTION,OPTION_1,OPTION_2,OPTION_3,OPTION_4 from QUESTION_PAPER where YEAR='.$year.' and SEMESTER='.$sem.' and DEPARTMENT="'.$department.'" and SUBJECT="'.$subject.'" and QUES_NO='.$question_no.'';
-		$result = mysqli_query($con , $query);
-		if($result && mysqli_num_rows($result) > 0){
-			$row = mysqli_fetch_assoc($result);
+	if(isset($_SESSION['stu_id']) && isset($_SESSION['stu_first_name'])){
+		echo 'Welcome '.$_SESSION['stu_first_name'];	
+		include 'php_controllers/database_connection.php';
+		if (isset($_SESSION['no_of_questions']) && isset($_GET['question'])) {
+			$question_no = $_GET['question'];
+			$max_question = $_SESSION['no_of_questions'];
+			$year = $_SESSION['year'];
+			$sem = $_SESSION['stu_sem'];
+			$department = $_SESSION['stu_department'];
+			$subject = $_SESSION['subject'];
+			$connection = new DatabaseConnect();
+			$con = $connection->connect();
+			$query = 'Select QUESTION,OPTION_1,OPTION_2,OPTION_3,OPTION_4 from QUESTION_PAPER where YEAR='.$year.' and SEMESTER='.$sem.' and DEPARTMENT="'.$department.'" and SUBJECT="'.$subject.'" and QUES_NO='.$question_no.'';
+			$result = mysqli_query($con , $query);
+			if($result && mysqli_num_rows($result) > 0){
+				$row = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,22 +53,24 @@
 <p id="demo"></p>
 <div>
 	<ul>
- 	<?php 
- 		if(isset($_SESSION['no_of_questions'])){
- 			$no_of_questions = $_SESSION['no_of_questions'];
- 			for($i = 1 ; $i <= $no_of_questions ; $i++ ){
- 	?>
+	<!-- Get no of questions -->
+			 	<?php 
+			 		if(isset($_SESSION['no_of_questions'])){
+			 			$no_of_questions = $_SESSION['no_of_questions'];
+			 			for($i = 1 ; $i <= $no_of_questions ; $i++ ){
+			 	?>
  		<a href="question_paper.php?question=<?php echo $i; ?>">
 		<li>Question <?php echo $i; ?></li>
 		</a>
- 	<?php		
- 			}
- 		}
- 	 ?>
+			 	<?php		
+			 			}
+			 		}
+			 	 ?>
+ 	 <!-- Show question paper to student -->
  	 </ul>
-	Question <?php echo $question_no; ?> : <?php echo $row['QUESTION']; ?>
+	Question <?php echo $question_no; ?> : <?php echo $row['QUESTION']; ?><br>
 	options<br>
-	<form action="#">
+	<form action="php_controllers/submit_answer.php?question_no=<?php echo $question_no; ?>" method="POST">
 	1.<input type="radio" name="answer" value="<?php echo $row['OPTION_1']; ?>">
 		<?php echo $row['OPTION_1']; ?><br>
 	2.<input type="radio" name="answer" value="<?php echo $row['OPTION_2']; ?>">
@@ -75,28 +79,42 @@
 		<?php echo $row['OPTION_3']; ?><br>
 	4.<input type="radio" name="answer" value="<?php echo $row['OPTION_4']; ?>">
 		<?php echo $row['OPTION_4']; ?><br>
-	<?php 
-		}
-	if ($question_no == 1) {
-	?>
+				<?php 
+					}
+				if ($question_no == $max_question) {
+				?>	
+		<input type="submit" name="submit_answer" value="Submit">
+				<?php
+				}else {
+					?>
+		<input type="submit" name="submit_answer" value="Submit And Move To Next">	
+	</form>
+	<!-- Navigation for next or previous question -->
+				<?php 
+					}
+				if ($question_no == 1) {
+				?>
 		<a href="question_paper.php?question=<?php echo $question_no+1; ?>">Next</a>
-<?php
-	}elseif ($question_no == $max_question) {
-		?>
+				<?php
+					}elseif ($question_no == $max_question) {
+						?>
 		<a href="question_paper.php?question=<?php echo $question_no-1; ?>">Previous</a>
-		<a href="show_result.php">Submit</a>
-<?php 
-	}else {
-		?>
+		<a href="php_controllers/show_result.php">Finish Exam</a>
+				<?php 
+					}else {
+						?>
 	<a href="question_paper.php?question=<?php echo $question_no-1 ?>">Previous</a>
 	<a href="question_paper.php?question=<?php echo $question_no+1 ?>">Next</a>	
-<?php	
+		<?php	
+			}
+		}else{
+			header("Location: student_profile.php");
+		}
+	}else{
+		header("Location: index.php");
 	}
-}else{
-	header("Location: student_profile.php");
-}
  ?>
-	</form>
+
 </div>		
 </body>
 </html>

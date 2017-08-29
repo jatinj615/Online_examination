@@ -1,9 +1,9 @@
 <?php 
 	session_start();
 	if(isset($_SESSION['stu_id']) && isset($_SESSION['stu_first_name'])){
-		echo $_SESSION['stu_first_name'];	
+		echo 'Welcome '.$_SESSION['stu_first_name'];	
 	} else{
-		header("Location: /Online_examination/index.php");
+		header("Location: index.php");
 	}
  ?>
  <!DOCTYPE html>
@@ -33,13 +33,14 @@
 		    // If the count down is over, write some text 
 		    if (distance < 0) {
 		        clearInterval(x);
-		        document.getElementById("demo").innerHTML = "Time Up";
+		        window.location.href = "show_result.php";
 		    }
 		}, 1000);
  	</script>
  </head>
  <body>
  	<p id="demo"></p>
+ 	<!-- Selection of Question paper by Student -->
  	<form action="php_controllers/select_question_paper.php" method="GET">
  		Subject : <input type="text" name="subject">
  		Year    : <input type="text" name="year">

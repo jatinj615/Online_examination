@@ -10,6 +10,7 @@
 	<title>Online Examination</title>
 </head>
 <body>
+	<!-- Student Login Panel -->
 	<div class="stu_sign_in">
 		<form name="sign_in" action="php_controllers/student_login.php" method="POST">
 			Student Id : <input type="text" name="student_id"><br>
@@ -18,6 +19,7 @@
 		</form>
 	</div>
 	<br><br>
+	<!-- Department Login Panel -->
 	<div class="admin_sign_in">
 		<form name="admin_login" action="php_controllers/department_login.php" method="POST">
 			Department : <input type="text" name="department_name">

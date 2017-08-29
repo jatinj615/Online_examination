@@ -17,7 +17,7 @@
 		$_SESSION['no_of_questions'] = $no_of_questions;
 		$counter = 0;
 		for ($i=1; $i <= $no_of_questions ; $i++) { 
-			echo $question_query = 'Insert into SUBMITTED_ANSWERS (STU_ID,STU_DEPARTMENT,STU_SEM,SUBJECT,YEAR,QUESTION_NO) values ('.$stu_id.',"'.$department.'",'.$sem.',"'.$subject.'",'.$year.','.$i.')';
+			echo $question_query = 'Insert into SUBMITTED_ANSWERS (STU_ID,STU_DEPARTMENT,STU_SEM,SUBJECT,YEAR,QUESTION_NO) values ("'.$stu_id.'","'.$department.'",'.$sem.',"'.$subject.'",'.$year.','.$i.')';
 			$insert_question = mysqli_query($con , $question_query);
 			if ($insert_question) {
 				echo $counter++;

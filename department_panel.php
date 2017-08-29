@@ -13,6 +13,7 @@
 	<title>Online Examination</title>
 </head>
 <body>
+	<!--Student Regiteration form-->
 	Student register
 	<div class="stu_register">
 		<form name="sign_up" action="php_controllers/student_signup.php" method="POST">
@@ -27,6 +28,7 @@
 		</form>
 	</div>
 	<br><br>
+	<!-- Input question paper of particular subject-->
 	input questions
 	<div class="no_of_questions">
 		<form action="php_controllers/set_no_questions.php" method="GET">
@@ -38,6 +40,7 @@
 		</form>
 	</div>
 	<br><br>
+	<!-- Add questions -->
 	<div class="add_questions">
 		Add Questions
 		<form action="php_controllers/add_questions.php" method="GET">
@@ -45,7 +48,6 @@
 				for($count = 1 ; $count <= $_GET['questions'] ; $count++) {
 		?>
 			Question No. : <input type="text" name="ques_no<?php echo $count; ?>"  value="<?php echo $count ?>"><br>
-			<!--text area at place of input tag-->
 			Question     : <textarea name="ques<?php echo $count; ?>" rows="5" cols="50"></textarea><br>
 			Options<br>
 			1    : <input type="text" name="option_<?php echo $count; ?>1"><br>
