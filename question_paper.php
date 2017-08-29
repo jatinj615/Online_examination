@@ -71,13 +71,13 @@
 	Question <?php echo $question_no; ?> : <?php echo $row['QUESTION']; ?><br>
 	options<br>
 	<form action="php_controllers/submit_answer.php?question_no=<?php echo $question_no; ?>" method="POST">
-	1.<input type="radio" name="answer" value="<?php echo $row['OPTION_1']; ?>">
+	1.<input type="radio" name="answer" value="<?php echo $row['OPTION_1']; ?>" id="<?php echo $row['OPTION_1']; ?>">
 		<?php echo $row['OPTION_1']; ?><br>
-	2.<input type="radio" name="answer" value="<?php echo $row['OPTION_2']; ?>">
+	2.<input type="radio" name="answer" value="<?php echo $row['OPTION_2']; ?>" id="<?php echo $row['OPTION_2']; ?>">
 		<?php echo $row['OPTION_2']; ?><br>
-	3.<input type="radio" name="answer" value="<?php echo $row['OPTION_3']; ?>">
+	3.<input type="radio" name="answer" value="<?php echo $row['OPTION_3']; ?>" id="<?php echo $row['OPTION_3']; ?>">
 		<?php echo $row['OPTION_3']; ?><br>
-	4.<input type="radio" name="answer" value="<?php echo $row['OPTION_4']; ?>">
+	4.<input type="radio" name="answer" value="<?php echo $row['OPTION_4']; ?>" id="<?php echo $row['OPTION_4']; ?>">
 		<?php echo $row['OPTION_4']; ?><br>
 				<?php 
 					}
@@ -113,6 +113,7 @@
 	}else{
 		header("Location: index.php");
 	}
+	$connection->closeConnection($con);
  ?>
 
 </div>		

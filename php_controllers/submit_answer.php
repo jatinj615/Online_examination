@@ -37,4 +37,5 @@
 	}else{
 		echo "error";
 	}
+	$connection->closeConnection($con);
 ?>
