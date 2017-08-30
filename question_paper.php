@@ -49,7 +49,7 @@
 		    // If the count down is over, write some text 
 		    if (distance < 0) {
 		        clearInterval(x);
-		        document.getElementById("demo").innerHTML = "Time Up";
+		        window.location.href = "php_controllers/show_result.php";
 		    }
 		}, 1000);
  	</script>
