@@ -4,6 +4,7 @@
 		echo 'Welcome '.$_SESSION['stu_first_name'];	
 		include 'php_controllers/database_connection.php';
 		if (isset($_SESSION['no_of_questions']) && isset($_GET['question'])) {
+			$stu_id = $_SESSION['stu_id'];
 			$question_no = $_GET['question'];
 			$max_question = $_SESSION['no_of_questions'];
 			$year = $_SESSION['year'];
@@ -16,6 +17,10 @@
 			$result = mysqli_query($con , $query);
 			if($result && mysqli_num_rows($result) > 0){
 				$row = mysqli_fetch_assoc($result);
+				$query_2 = 'Select ANSWER_GIVEN from SUBMITTED_ANSWERS where STU_ID="'.$stu_id.'" and STU_DEPARTMENT="'.$department.'" and STU_SEM='.$sem.' and SUBJECT="'.$subject.'" and YEAR='.$year.' and QUESTION_NO='.$question_no;
+				$get_check = mysqli_query($con , $query_2);
+				if ($get_check && mysqli_num_rows($get_check) == 1) {
+					$check_value = mysqli_fetch_assoc($get_check);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,8 +53,21 @@
 		    }
 		}, 1000);
  	</script>
+ 	<?php 
+ 					if($check_value['ANSWER_GIVEN'] != null){
+						$check_id = $check_value['ANSWER_GIVEN'];
+ 	 ?>
+ 	<script type="text/javascript">
+ 	function checkRadio(){
+ 		document.getElementById("<?php echo $check_id; ?>").checked = true;
+ 	}
+ 	</script>
+ 	<?php 
+ 					}
+ 				}
+ 	 ?>
 </head>
-<body>
+<body onload="checkRadio()">
 <p id="demo"></p>
 <div>
 	<ul>
