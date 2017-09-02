@@ -1,10 +1,10 @@
 <?php
 	session_start();
-	$stu_id = $_POST['student_id'];
-	$stu_pass = md5($_POST['student_password']);
 	include 'database_connection.php';
 	$connection = new DatabaseConnect();
 	$con = $connection->connect();
+	echo $stu_id = mysqli_real_escape_string($con,$_POST['student_id']);
+	echo $stu_pass = md5(mysqli_real_escape_string($con,$_POST['student_password']));
 	//Inserting login and logout time
 	$add_login_time_query = 'Update STUDENTS set LOGIN_AT=now(),LOGOUT_AT=ADDTIME(now(), "03:00:00") where STU_ID="'.$stu_id.'" and STU_PASSWORD="'.$stu_pass.'"';
 	$selection_query =  'Select STU_FIRST_NAME,STU_ID,STU_SEM,STU_DEPARTMENT,LOGOUT_AT from STUDENTS where STU_ID="'.$stu_id.'" and STU_PASSWORD= "'.$stu_pass.'"';
@@ -20,6 +20,9 @@
 			$_SESSION['stu_sem'] = $row['STU_SEM'];
 			$_SESSION['stu_department'] = $row['STU_DEPARTMENT'];
 			header("Location: /Online_examination/student_profile.php");
+		}else{
+			$error = 'error';
+			header("Location: /Online_examination/index.php?error=$error");	
 		}	
 	}else {
 		$error = 'error';

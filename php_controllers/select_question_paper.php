@@ -1,13 +1,13 @@
 <?php
 	session_start();
 	include 'database_connection.php';
-	$subject = $_GET['subject'];
-	$year = $_GET['year'];
 	$sem = $_SESSION['stu_sem'];
 	$stu_id = $_SESSION['stu_id'];
 	$department = $_SESSION['stu_department'];
 	$connection = new DatabaseConnect();
 	$con = $connection->connect();
+	$subject = mysqli_real_escape_string($con, $_GET['subject']);
+	$year = mysqli_real_escape_string($con, $_GET['year']);
 	$query = 'Select QUES_NO,QUESTION,OPTION_1,OPTION_2,OPTION_3,OPTION_4 from QUESTION_PAPER where YEAR='.$year.' AND DEPARTMENT="'.$department.'" AND SEMESTER='.$sem.' AND SUBJECT="'.$subject.'"';
 	$result = mysqli_query($con , $query);
 	if($result && mysqli_num_rows($result) > 0 ){
