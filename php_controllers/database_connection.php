@@ -5,7 +5,7 @@
 	class DatabaseConnect
 	{
 		public function connect() {
-			$connect_var = mysqli_connect('localhost','root','','online_examination');
+			$connect_var = mysqli_connect('localhost','root','1234','online_examination');
 			if(!$connect_var){
 				echo "Connection Failed";
 			}else {
